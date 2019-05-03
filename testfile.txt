@@ -1,0 +1,65 @@
+beginprogram
+
+	declare [a, b, c, d, e] as [Integer,Integer,String,String,Integer];
+	declare [k, j, cont, cadena] as [Integer,Integer,Integer, String];
+
+	a = 10;
+	-/  a = 1000000000000000000000000000000000000; (cota) /-
+
+	b = 20;
+
+	c = "cadena"; 
+	-/ c = "cadenaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"; (cota) /-
+
+	d = "de prueba";
+	-/ d = 30; (tipo) /-
+
+	e = 2;
+
+	-/ f = 30; (no definida) /-
+
+	-/ ESTO ES UN -/ESTO ES UN COMENTARIO ANIDADO/- COMENTARIO ANIDADO /-
+
+	if(a<b and b == 20) then
+		while(a!=0) do
+			while(e>1) do
+				e = e - 1;
+			endwhile
+			a = a - 1;
+		endwhile
+
+		if(a == 0) then
+			write "a es igual a cero";
+		else 
+			write "a es distinto de cero";
+		endif
+	endif
+
+	c = c ++ d;
+
+	write c;
+	read e;
+
+	j=1;
+	k=1;
+	cont = 1;
+
+	-/ prueba tema especial 1 /-
+
+	if(#Iguales(j,[k,cont]) == 2) then
+		write "Dos elementos iguales";
+	else
+		write "Los elementos son distintos";
+	endif
+		
+	cont = 2;
+
+	-/ prueba tema especial 2 /-
+	
+	if(AllEqual([j],[k],[cont]) ) then
+		write "AllEqual verdadero";
+	else
+		write "AllEqual falso";
+	endif
+
+endprogram
