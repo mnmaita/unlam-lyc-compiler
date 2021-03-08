@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <string>
 
 List Selections;
 List Cycles;
@@ -13,7 +14,7 @@ void listInit(List* List) {
 }
 
 /* Inserts an element on the list in the desired position */
-int listInsert(List* List, char* Data, int Pos) {
+int listInsert(List* List, std::string Data, int Pos) {
     if (List->Size < 2) {
         printf("[listInsert]: Error: list size is less than two.\n");
         return -1;
@@ -52,7 +53,7 @@ int listInsert(List* List, char* Data, int Pos) {
         return -1;
     }
 
-    strcpy(NewElement->Data, Data);
+    strcpy(NewElement->Data, Data.c_str());
 
     NewElement->Next = Current->Next;
     Current->Next = NewElement;
@@ -61,17 +62,17 @@ int listInsert(List* List, char* Data, int Pos) {
 }
 
 /* Inserts an element at the back of the list */
-int listInsertBack(List* List, ListElement* current, char* Data) {
+int listInsertBack(List* List, ListElement* current, std::string Data) {
     ListElement* NewElement;
 
     if ((NewElement = (ListElement*)malloc(sizeof(ListElement))) == NULL) {
         return -1;
     }
-    if ((NewElement->Data = (char*)malloc(strlen(Data) * sizeof(char) + 1)) == NULL) {
+    if ((NewElement->Data = (char*)malloc(strlen(Data.c_str()) * sizeof(char) + 1)) == NULL) {
         return -1;
     }
 
-    strcpy(NewElement->Data, Data);
+    strcpy(NewElement->Data, Data.c_str());
     NewElement->Next = NULL;
 
     if (List->Size == 0) {
@@ -151,7 +152,7 @@ int listGetData(List* List, char* Data, int Pos) {
     return 1;
 }
 
-void pushStack(List* List, char* Data) {
+void pushStack(List* List, std::string Data) {
     if (List == &Selections || List == &Cycles)
         printf("Apilando POS %s\n", Data);
     listInsertBack(List, List->End, Data);
