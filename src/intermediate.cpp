@@ -40,5 +40,5 @@ int irWrite() {
         fprintf(pfPolaca, " %s ", current->Data);
         current = current->Next;
     }
-    fclose(pfPolaca);
+    return fclose(pfPolaca);
 }
