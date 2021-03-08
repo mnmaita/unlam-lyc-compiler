@@ -22,7 +22,7 @@ target=Compiler
 includedirs:=include
 srcdir:=src
 objdir:=obj
-bindir:=.
+bindir:=bin
 
 # Includes, source, object and dependecy files #
 INCLUDES := $(addprefix -I,$(includedirs))
