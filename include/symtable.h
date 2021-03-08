@@ -12,9 +12,17 @@ struct SymtableRecord {
 };
 
 /* Symbol Table Variables */
+extern FILE* pf_Symtable;
 extern char buffer[];
+extern SymtableRecord SymbolTable[];
+extern int SymbolTableEntries;
 extern SymtableRecord SymbolTableASM[];
 extern int SymbolTableASMEntries;
+
+/* Assembler Symbol table internal functions */
+int asmSymtableInsert(char* Value, int Type);
+int asmSymtableInsertType(char* id, int Type);
+int asmSymtableSearch(char* Name);
 
 /* Symbol table functions */
 int symtableSearch(char* Name);
