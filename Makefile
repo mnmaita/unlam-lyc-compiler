@@ -57,7 +57,7 @@ $(CXXOBJECTS): $(objdir)/%.o: $(srcdir)/%.cpp
 .PHONY: clean
 clean:
 	$(rm) $(target)
-	$(rm) *.exe
+	$(rm) $(bindir)$(PATHSEP)*.exe
 	$(rm) $(objdir)$(PATHSEP)*.o
 	$(rm) $(objdir)$(PATHSEP)*.d
 	$(rm) *.tab.h *.tab.c *.l.c *.tab.cc *.l.cc
