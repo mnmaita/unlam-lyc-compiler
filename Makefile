@@ -39,6 +39,7 @@ CXXFLAGS += $(INCLUDES)
 all: $(CPPOBJECTS) $(CXXOBJECTS) $(target)
 
 $(target): %: %.y
+	mkdir -p bin
 	@echo "Compiling yacc file:" $<
 	@echo "Output file:" $@
 	bison -o$@.tab.c -d $<
@@ -49,9 +50,11 @@ $(target): %: %.y
 	$(rm) $@.tab.c $@.tab.h $@.l.c
 
 $(CPPOBJECTS): $(objdir)/%.o: $(srcdir)/%.c
+	mkdir -p obj
 	$(CC) $(CPPFLAGS) -c $(OUTPUT_OPTION) $<
 
 $(CXXOBJECTS): $(objdir)/%.o: $(srcdir)/%.cpp
+	mkdir -p obj
 	$(CXX) $(CXXFLAGS) -c $(OUTPUT_OPTION) $<
 
 .PHONY: clean
