@@ -112,16 +112,16 @@ sentencia:	ciclo
 ciclo:	WHILE	{
 					char buf[50];
 					strcpy(buf,"GOTO");
-					strcat(buf,itoa(polish.size+2, buffer, 10));
+					strcat(buf,itoa(polish.Size+2, buffer, 10));
 					irInsert(buf);
-					pushStack(&Cycles, itoa(polish.size+1, buffer, 10));
+					pushStack(&Cycles, itoa(polish.Size+1, buffer, 10));
 					IsIfCondition = 0;
 				}
 		PARENTHESES_OPEN condicion PARENTHESES_CLOSE	DO bloque
 		END_WHILE	{
-						irSetData(itoa(polish.size+3,buffer,10),atoi(dequeue(&Cycles)));
+						irSetData(itoa(polish.Size+3,buffer,10),atoi(dequeue(&Cycles)));
 						if($<intval>4 > 1)
-							irSetData(itoa(polish.size+3,buffer,10),atoi(dequeue(&Cycles)));
+							irSetData(itoa(polish.Size+3,buffer,10),atoi(dequeue(&Cycles)));
 						irInsert(dequeue(&Cycles));
 						irInsert("JMP");
 					}
@@ -132,31 +132,31 @@ seleccion:	IF {IsIfCondition = 1;} bloque_if
 	
 bloque_if:	PARENTHESES_OPEN condicion PARENTHESES_CLOSE THEN bloque
 			END_IF	{
-						irSetData(itoa(polish.size+1,buffer,10),atoi(dequeue(&Selections)));
+						irSetData(itoa(polish.Size+1,buffer,10),atoi(dequeue(&Selections)));
 						if($<intval>2 > 1)
-							irSetData(itoa(polish.size+1,buffer,10),atoi(dequeue(&Selections)));
+							irSetData(itoa(polish.Size+1,buffer,10),atoi(dequeue(&Selections)));
 					}
 
 			| PARENTHESES_OPEN condicion PARENTHESES_CLOSE THEN bloque
 			  ELSE	{
-						irSetData(itoa(polish.size+3,buffer,10),atoi(dequeue(&Selections)));
+						irSetData(itoa(polish.Size+3,buffer,10),atoi(dequeue(&Selections)));
 						if($<intval>2 > 1)
-							irSetData(itoa(polish.size+3,buffer,10),atoi(dequeue(&Selections)));
-						pushStack(&Selections, itoa(polish.size+1,buffer,10));
+							irSetData(itoa(polish.Size+3,buffer,10),atoi(dequeue(&Selections)));
+						pushStack(&Selections, itoa(polish.Size+1,buffer,10));
 						irInsert("RES2");
 						irInsert("JMP");
 					}
 			  bloque END_IF	{
-								irSetData(itoa(polish.size+1,buffer,10), atoi(dequeue(&Selections)));
+								irSetData(itoa(polish.Size+1,buffer,10), atoi(dequeue(&Selections)));
 							}
 			;
 			
 
 condicion:	comparacion {
 							if(IsIfCondition == 1)
-								pushStack(&Selections, itoa(polish.size+2,buffer,10));
+								pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 							else if(IsIfCondition == 0)
-								pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+								pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 							irInsert("CMP");
 							irInsert("RES1");
 							irInsert($<strval>1);
@@ -164,9 +164,9 @@ condicion:	comparacion {
 						}
 			| OP_NOT comparacion	{
 										if(IsIfCondition == 1)
-											pushStack(&Selections, itoa(polish.size+2,buffer,10));
+											pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 										else if(IsIfCondition == 0)
-											pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+											pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 										irInsert("CMP");
 										irInsert("RES1");
 										char jump[5];
@@ -188,18 +188,18 @@ condicion:	comparacion {
 									}
 			| comparacion	{
 								if(IsIfCondition == 1)
-									pushStack(&Selections, itoa(polish.size+2,buffer,10));
+									pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 								else if(IsIfCondition == 0)
-									pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+									pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 								irInsert("CMP");
 								irInsert("RES1");
 								irInsert($<strval>1);
 							}
 			  OP_AND comparacion	{
 										if(IsIfCondition == 1)
-											pushStack(&Selections, itoa(polish.size+2,buffer,10));
+											pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 										else if(IsIfCondition == 0)
-											pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+											pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 										irInsert("CMP");
 										irInsert("RES1");
 										irInsert($<strval>4);
@@ -208,18 +208,18 @@ condicion:	comparacion {
 									}
 			| comparacion	{
 								if(IsIfCondition == 1)
-									pushStack(&Selections, itoa(polish.size+2,buffer,10));
+									pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 								else if(IsIfCondition == 0)
-									pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+									pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 								irInsert("CMP");
 								irInsert("RES1");
 								irInsert($<strval>1);
 							}
 			  OP_OR comparacion	{
 									if(IsIfCondition == 1)
-										pushStack(&Selections, itoa(polish.size+2,buffer,10));
+										pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 									else if(IsIfCondition == 0)
-										pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+										pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 									irInsert("CMP");
 									irInsert("RES1");
 									irInsert($<strval>4);
@@ -228,9 +228,9 @@ condicion:	comparacion {
 								}
 			| all_equal	{
 							if(IsIfCondition == 1)
-								pushStack(&Selections, itoa(polish.size+2,buffer,10));
+								pushStack(&Selections, itoa(polish.Size+2,buffer,10));
 							else if(IsIfCondition == 0)
-								pushStack(&Cycles, itoa(polish.size+2,buffer,10));
+								pushStack(&Cycles, itoa(polish.Size+2,buffer,10));
 							irInsert("CMP");
 							irInsert("RES1");
 							irInsert("JNZ");
@@ -398,7 +398,7 @@ lista_expresiones_iguales:	expresion_iguales
 
 expresion_iguales:	expresion	{
 						char buf[40];
-						pushStack(&EqualsList,itoa(polish.size+3,buffer,10));
+						pushStack(&EqualsList,itoa(polish.Size+3,buffer,10));
 						strcpy(buf,"_expr_iguales");
 						strcat(buf,itoa(EqualsIndex,buffer,10));
 						irInsert(buf);
@@ -412,7 +412,7 @@ expresion_iguales:	expresion	{
 						irInsert("+");
 						irInsert(buf);
 						irInsert("=");
-						irSetData(itoa(polish.size+1,buffer,10),atoi(popStack(&EqualsList)));
+						irSetData(itoa(polish.Size+1,buffer,10),atoi(popStack(&EqualsList)));
 					}
 					;
 	
@@ -427,7 +427,7 @@ expresion_allequals:	expresion	{
 								symtableInsert(TYPE_FLOAT,buf);
 								irInsert(buf);
 								irInsert("=");
-								pushStack(&AllEqualsExpressions,itoa(polish.size+1,buffer,10));
+								pushStack(&AllEqualsExpressions,itoa(polish.Size+1,buffer,10));
 							}
 							else {
 								int pos = atoi(dequeue(&AllEqualsExpressions));
@@ -461,12 +461,12 @@ all_equal:	FN_ALLEQUAL { AllequalIndex++; TotalExpressionAllEquals = 0;} PARENTH
 				if(TotalExpressionLists<2) 
 					yyerror("AllEqual debe recibir como parametro al menos dos listas.");
 				irInsert("TRUE");
-				irInsert(itoa(polish.size+4,buffer,10));
+				irInsert(itoa(polish.Size+4,buffer,10));
 				irInsert("JMP");
 				irInsert("FALSE");
 				irInsert("TRUE");
-				while(AllEqualsStack.size > 0){
-					irSetData(itoa(polish.size-1,buffer,10),atoi(popStack(&AllEqualsStack)));
+				while(AllEqualsStack.Size > 0){
+					irSetData(itoa(polish.Size-1,buffer,10),atoi(popStack(&AllEqualsStack)));
 				}
 			}
 			PARENTHESES_CLOSE
