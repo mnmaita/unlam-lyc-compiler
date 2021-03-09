@@ -7,7 +7,7 @@
 
 #define SYMTABLE "ts.txt"
 
-/* Assembler Symbol table internal functions */
+// Assembler Symbol table internal functions
 
 int asmSymtableInsert(char* Value, int Type) {
     if ((asmSymtableSearch(Value)) == -1) {
@@ -18,10 +18,12 @@ int asmSymtableInsert(char* Value, int Type) {
         strcpy(reg.Type, "");
         reg.Length = strlen(Value);
         SymbolTableASM[SymbolTableASMEntries++] = reg;
-        return 1; // Pudo insertar en SYMTABLE
+        // Pudo insertar en SYMTABLE
+        return 1;
     }
     // printf("No se pudo insertar el ID %s en cabecera ASM.\n",Value);
-    return 0; // No pudo insertar
+    // No pudo insertar
+    return 0;
 }
 
 int asmSymtableInsertType(char* id, int Type) {
@@ -35,14 +37,15 @@ int asmSymtableInsertType(char* id, int Type) {
                 strcpy(SymbolTableASM[pos].Value, "?");
             } else {
                 strcpy(SymbolTableASM[pos].Value, SymbolTable[tsPos].Value);
-                if (Type == TYPE_CONST_INT)
+                if (Type == TYPE_CONST_INT) {
                     strcat(SymbolTableASM[pos].Value, ".0");
+                }
             }
         } else if (Type == TYPE_STRING || Type == TYPE_CONST_STRING) {
             strcpy(SymbolTableASM[pos].Type, "db");
-            if (Type == TYPE_STRING)
+            if (Type == TYPE_STRING) {
                 strcpy(SymbolTableASM[pos].Value, "MAXSTRSIZE dup (?), '$'");
-            else {
+            } else {
                 strcat(SymbolTableASM[pos].Value, SymbolTable[tsPos].Value);
                 strcat(SymbolTableASM[pos].Value, ", '$', ");
                 strcat(SymbolTableASM[pos].Value,
@@ -51,9 +54,10 @@ int asmSymtableInsertType(char* id, int Type) {
             }
         } else if (Type == TYPE_ID) {
             strcpy(SymbolTableASM[pos].Type, "");
-        } else
+        } else {
             logError("[Insertar Tipo ASM]: Tipo invalido; No se puede insertar el tipo pasado "
                      "por parametro.");
+        }
     } else {
         logError("[Insertar Tipo ASM]: No se encontro el id en la tabla de simbolos.");
     }
@@ -63,10 +67,11 @@ int asmSymtableInsertType(char* id, int Type) {
 int asmSymtableSearch(char* Name) {
     int i, index = 0;
     for (i = 0; i < SymbolTableASMEntries; i++) {
-        if (SymbolTableASM[i].Name[0] == '@' || SymbolTableASM[i].Name[0] == '_')
+        if (SymbolTableASM[i].Name[0] == '@' || SymbolTableASM[i].Name[0] == '_') {
             index = 1;
-        else
+        } else {
             index = 0;
+        }
         // printf("Comparando %s con %s\n",SymbolTableASM[i].Name+index,Name);
         if (strcmp(SymbolTableASM[i].Name + index, Name) == 0) {
             return i;
@@ -75,7 +80,7 @@ int asmSymtableSearch(char* Name) {
     return -1;
 }
 
-/* Symbol Table Variables */
+// Symbol Table Variables
 FILE* pf_Symtable;
 char buffer[1000];
 SymtableRecord SymbolTable[1000];
@@ -84,14 +89,15 @@ int SymbolTableEntries = 0;
 SymtableRecord SymbolTableASM[1000];
 int SymbolTableASMEntries = 0;
 
-/* TABLA DE SIMBOLOS */
+// TABLA DE SIMBOLOS
 int symtableSearch(char* Name) {
     int i, index = 0;
     for (i = 0; i < SymbolTableEntries; i++) {
-        if (SymbolTable[i].Name[0] == '_')
+        if (SymbolTable[i].Name[0] == '_') {
             index = 1;
-        else
+        } else {
             index = 0;
+        }
         // printf("Comparando %s con %s\n",SymbolTable[i].Name+index,Name);
         if (!strcmp(SymbolTable[i].Name + index, Name)) {
             return i;
@@ -102,10 +108,7 @@ int symtableSearch(char* Name) {
 
 int symtableSearchInternalType(char* Name) {
     int i = symtableSearch(Name);
-    if (i >= 0)
-        return SymbolTable[i].InternalType;
-    else
-        return -1;
+    return i >= 0 ? SymbolTable[i].InternalType : -1;
 }
 
 int symtableInsert(int Type, char* Value) {
@@ -155,17 +158,20 @@ int symtableInsert(int Type, char* Value) {
                     reg.InternalType = TYPE_STRING;
                 }
             }
-        } else
+        } else {
             logError("[Insertar SYMTABLE]: Tipo invalido; No se puede insertar un elemento "
                      "del tipo pasado por parametro.");
+        }
         reg.Length = strlen(Value);
         SymbolTable[SymbolTableEntries++] = reg;
         asmSymtableInsertType(Value, Type);
         // printf("ID %s insertado en SYMTABLE exitosamente.\n",Value);
-        return 1; // Pudo insertar en SYMTABLE
+        // Pudo insertar en SYMTABLE
+        return 1;
     }
     // printf("No se pudo insertar el ID %s en SYMTABLE.\n",Value);
-    return 0; // No pudo insertar
+    // No pudo insertar
+    return 0;
 }
 
 int symtableInsertType(char* id, int Type) {
@@ -181,9 +187,10 @@ int symtableInsertType(char* id, int Type) {
         } else if (Type == TYPE_STRING) {
             strcpy(SymbolTable[pos].Type, "String");
             SymbolTable[pos].InternalType = TYPE_STRING;
-        } else
+        } else {
             logError("[Insertar Tipo]: Tipo invalido; No se puede insertar el tipo pasado por "
                      "parametro.");
+        }
         asmSymtableInsertType(id, Type);
     } else {
         logError("[Insertar Tipo]: No se encontro el id en la tabla de simbolos.");
@@ -201,10 +208,12 @@ int symtableWrite() {
     fprintf(pf_Symtable, "NOMBRE \t\t TIPO \t\t VALOR \t\t LONGITUD \n");
     for (i = 0; i < SymbolTableEntries; i++) {
         fprintf(pf_Symtable, "%s \t\t", SymbolTable[i].Name);
-        if (SymbolTable[i].Type != NULL)
+        if (SymbolTable[i].Type != NULL) {
             fprintf(pf_Symtable, "%s \t\t", SymbolTable[i].Type);
-        if (SymbolTable[i].Value != NULL)
+        }
+        if (SymbolTable[i].Value != NULL) {
             fprintf(pf_Symtable, "%s \t\t", SymbolTable[i].Value);
+        }
         fprintf(pf_Symtable, "%d \n", SymbolTable[i].Length);
     }
     fclose(pf_Symtable);
