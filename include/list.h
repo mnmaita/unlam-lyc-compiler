@@ -1,5 +1,5 @@
-#ifndef _LIST_H_
-#define _LIST_H_
+#ifndef INCLUDE_LIST_H_
+#define INCLUDE_LIST_H_
 
 #include <string>
 
@@ -30,4 +30,4 @@ void pushStack(List* List, std::string Data);
 char* popStack(List* List);
 char* dequeue(List* List);
 
-#endif
+#endif // INCLUDE_LIST_H_

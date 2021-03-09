@@ -1,5 +1,5 @@
-#if !defined(_SYMTABLE_H_)
-#define _SYMTABLE_H_
+#ifndef INCLUDE_SYMTABLE_H_
+#define INCLUDE_SYMTABLE_H_
 
 #include <cstdio>
 
@@ -31,4 +31,4 @@ int symtableInsert(int, char* Value);
 int symtableInsertType(char* id, int Type);
 int symtableWrite();
 
-#endif // _SYMTABLE_H_
+#endif // INCLUDE_SYMTABLE_H_

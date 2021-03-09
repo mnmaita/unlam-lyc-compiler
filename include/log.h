@@ -1,8 +1,8 @@
-#if !defined(_LOG_H_)
-#define _LOG_H_
+#ifndef INCLUDE_LOG_H_
+#define INCLUDE_LOG_H_
 
 #include <string>
 
 int logError(std::string message);
 
-#endif // _LOG_H_
+#endif // INCLUDE_LOG_H_

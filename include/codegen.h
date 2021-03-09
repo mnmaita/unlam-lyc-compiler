@@ -1,8 +1,8 @@
-#if !defined(_CODEGEN_H_)
-#define _CODEGEN_H_
+#ifndef INCLUDE_CODEGEN_H_
+#define INCLUDE_CODEGEN_H_
 
 int asmGenerateHeader();
 int asmGenerateCode();
 int asmWrite();
 
-#endif // _CODEGEN_H_
+#endif // INCLUDE_CODEGEN_H_

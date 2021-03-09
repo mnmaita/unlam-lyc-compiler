@@ -1,5 +1,5 @@
-#if !defined(_INTERMEDIATE_H_)
-#define _INTERMEDIATE_H_
+#ifndef INCLUDE_INTERMEDIATE_H_
+#define INCLUDE_INTERMEDIATE_H_
 
 #include "list.h"
 
@@ -11,4 +11,4 @@ int irGetData(char* data, int pos);
 void irInsertAt(char* data, int pos);
 int irWrite();
 
-#endif // _INTERMEDIATE_H_
+#endif // INCLUDE_INTERMEDIATE_H_

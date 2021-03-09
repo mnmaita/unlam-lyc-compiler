@@ -1,5 +1,5 @@
-#ifndef _COMPILER_HEADER_H_
-#define _COMPILER_HEADER_H_
+#ifndef INCLUDE_HEADER_H_
+#define INCLUDE_HEADER_H_
 
 #include "list.h"
 
@@ -16,4 +16,4 @@ int EqualsIndex = 0;
 int AssignmentType = 0;
 int IsIfCondition = 0;
 
-#endif
+#endif // INCLUDE_HEADER_H_
