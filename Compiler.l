@@ -32,7 +32,7 @@ void lexError(char* message);
 
 %option noyywrap
 %option yylineno
-   
+
 %%
 "beginprogram"	{ printf(" # Begin Program\n"); return BEGIN_PROGRAM; }
 "endprogram"	{ printf(" # End Program\n"); return END_PROGRAM; }
